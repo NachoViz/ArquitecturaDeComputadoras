@@ -1,24 +1,4 @@
 `timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: Vizgarra
-// 
-// Create Date: 27/08/2026 04:45:38 PM
-// Design Name: 
-// Module Name: alu
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
-//////////////////////////////////////////////////////////////////////////////////
-
 
 module alu
     (
@@ -28,9 +8,6 @@ module alu
         output reg   [7 : 0]  Out,
         output          	 Zero 
     );
-
-        reg [3:0] copydata;
-        reg       uart_txd_in_d;
 
         always@(* ) begin
             
