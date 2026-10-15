@@ -9,6 +9,7 @@ module alu
         output          	 Zero 
     );
 
+
         always@(* ) begin
             
             case(OP)
