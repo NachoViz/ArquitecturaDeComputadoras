@@ -1,5 +1,5 @@
 `timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 // top_uart_alu_tb - Testbench autochequeante de sistema
 //
 // Habla con el top por la linea serie como lo haria la PC: manda A, B y OP
@@ -9,13 +9,13 @@
 // Para que la simulacion no tarde una eternidad se baja el divisor del baud
 // generator a 4 (en la placa es 326). El comportamiento de las FSM es el
 // mismo: lo unico que cambia es cada cuantos ciclos llega el tick.
-//////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 
 module top_uart_alu_tb;
 
-    localparam CLK_PERIOD = 10;                 // 100 MHz
-    localparam DVSR_SIM   = 4;                  // divisor chico para simular
-    localparam BIT_TIME   = 16 * DVSR_SIM * CLK_PERIOD;   // 640 ns por bit
+    localparam CLK_PERIOD = 10;                               // 100 MHz
+    localparam DVSR_SIM   = 4;                                // divisor chico para simular
+    localparam BIT_TIME   = 16 * DVSR_SIM * CLK_PERIOD;       // 640 ns por bit
 
     localparam [5:0] OP_ADD = 6'b100000;
     localparam [5:0] OP_SUB = 6'b100010;
@@ -161,6 +161,10 @@ module top_uart_alu_tb;
     endtask
 
     initial begin
+        // Volcado de ondas para visualización con GTKWave / iverilog
+        $dumpfile("top_uart_alu_tb.vcd");
+        $dumpvars(0, top_uart_alu_tb);
+
         errors = 0;
         checks = 0;
         rx     = 1'b1;              // linea en reposo

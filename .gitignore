@@ -1,1 +1,14 @@
 .env
+
+# Vivado and simulation artifacts
+*.log
+*.jou
+*.vcd
+sim_tp2
+.Xil/
+*.runs/
+*.cache/
+*.hw/
+*.ip_user_files/
+*.sim/
+

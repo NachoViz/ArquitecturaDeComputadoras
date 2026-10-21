@@ -1,16 +1,5 @@
 `timescale 1ns / 1ps
 
-// Interface Circuit (Maquina de Estado que controla entre el UART y la ALU)
-
-// Protocolo sobre la linea serie (3 bytes entran, 1 byte sale):
-
-//      PC -> FPGA : byte 1 = dato A
-//      PC -> FPGA : byte 2 = dato B
-//      PC -> FPGA : byte 3 = codigo de operacion (se usan los 6 bits bajos)
-//      FPGA -> PC : byte 4 = resultado de la ALU
-
-// Estados: LOAD_A, LOAD_B, LOAD_OP, SEND
-
 
 module intf
 #(
@@ -19,26 +8,25 @@ module intf
 )
 (
     input  wire                     clk,
-    input  wire                     reset,          // activo en alto
-
-    // Lado FIFO de recepcion
+    input  wire                     reset,          
+    
     input  wire [NB_DATA-1:0]       r_data,
     input  wire                     rx_empty,
     output reg                      rd,
 
-    // Lado FIFO de transmision
+
     output wire [NB_DATA-1:0]       w_data,
     output reg                      wr,
     input  wire                     tx_full,
 
-    // Lado ALU
+
     output wire [NB_DATA-1:0]       o_alu_a,
     output wire [NB_DATA-1:0]       o_alu_b,
     output wire [NB_OP-1:0]         o_alu_op,
     input  wire [NB_DATA-1:0]       i_alu_result,
     input  wire                     i_alu_carry,
 
-    // Debug / LEDs
+
     output wire                     o_carry_flag,
     output wire [3:0]               o_state
 );
@@ -54,7 +42,7 @@ module intf
     reg [NB_OP-1:0]   op_reg,    op_next;
     reg               carry_reg, carry_next;
 
-    // Memoria
+
     always @(posedge clk) begin
         if (reset) begin
             state_reg <= LOAD_A;
@@ -72,7 +60,7 @@ module intf
         end
     end
 
-    // Logica de proximo estado
+
     always @(*) begin
         state_next = state_reg;
         a_next     = a_reg;
@@ -110,12 +98,12 @@ module intf
             SEND: begin
                 if (~tx_full) begin
                     wr         = 1'b1;
-                    carry_next = i_alu_carry;   // se engancha para el LED
+                    carry_next = i_alu_carry;  
                     state_next = LOAD_A;
                 end
             end
 
-            default: state_next = LOAD_A;       // Recuperacion ante fallos
+            default: state_next = LOAD_A;     
         endcase
     end
 

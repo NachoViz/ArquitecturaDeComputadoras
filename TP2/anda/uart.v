@@ -1,13 +1,8 @@
 `timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////
-// uart - UART completa: baud generator + receptor + transmisor + FIFOs
-//
-// Corresponde a los bloques "Baud Rate Generator", "Rx", "Tx" y el
-// almacenamiento del "Interface Circuit" del diagrama del TP.
-//
-// Hacia afuera expone una interfaz tipo cola:
-//      lectura : r_data / rd / rx_empty
-//      escritura: w_data / wr / tx_full
+
+// OUTPUTS
+//      RD : r_data / rd / rx_empty
+//      WR : w_data / wr / tx_full
 //
 // Detalle del lado Tx: mientras la FIFO de transmision no este vacia se
 // mantiene tx_start en alto, y cada vez que el transmisor termina un byte
